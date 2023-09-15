@@ -1,13 +1,25 @@
-import Counter from "./components/Counter"
+import { useEffect } from "react"
+import { useLocalStorage } from "./hooks/useLocalStorage"
+import { getAllCharacters } from "./services/characters"
+import { StyledLink } from "./components/styles"
 
 function App() {
+  const [username, setUsername] = useLocalStorage("username")
+
+  useEffect(() => {
+    getAllCharacters()
+  }, [])
+
   return (
     <>
-      <Counter initialValue={0} />
+      <input
+        value={username}
+        onChange={(event) => setUsername(event.target.value)}
+      />
+      {username}
+      <StyledLink to="/"></StyledLink>
     </>
   )
 }
-
-// Counter({initialValue: 0})
 
 export default App
